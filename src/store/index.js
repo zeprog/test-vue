@@ -40,6 +40,7 @@ export default new Vuex.Store({
   actions: {
     wsConnect ({ commit, dispatch, state }) {
       const ws = new WebSocket(`${webSocketsUrl}?session=${document.documentElement.dataset.session}`);
+      console.log(document.documentElement.dataset);
       console.log('LOG 1');
       console.log(ws);
       ws.onmessage = (msg) => {
