@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     ws: null,
-    role: 'Instructor',
+    role: '',
     settings: {},
     isAssignment: Boolean,
     answers: [],
@@ -49,7 +49,7 @@ export default new Vuex.Store({
             commit('setAssignments', message.body);
             break;
           case "wrongToken":
-            commit('setSettings', {... state.settings, token: ""});
+            commit('setSettings', { ...state.settings, token: "" });
             break;
         }
       };
@@ -57,11 +57,12 @@ export default new Vuex.Store({
       commit('setSocket', ws);
     },
     wsReconnect ({ dispatch }) {
-      setTimeout(()=>{dispatch('wsConnect')}, 1000);
+      setTimeout(() => { dispatch('wsConnect'); }, 1000);
     },
     wsSend ({ state }, data) {
-      if(state.ws && state.ws.readyState === WebSocket.OPEN)
+      if (state.ws && state.ws.readyState === WebSocket.OPEN) {
         state.ws.send(JSON.stringify(data));
+      }
     },
     updateSettings ({ commit, dispatch }, payload) {
       dispatch('wsSend', {
@@ -80,6 +81,50 @@ export default new Vuex.Store({
       dispatch('wsSend', {
         action: 'journalDownloaded'
       });
-    },
+    }
+    // wsConnect ({ commit, dispatch, state }) {
+    //   const ws = new WebSocket(`${webSocketsUrl}?session=${document.documentElement.dataset.session}`);
+    //   ws.onmessage = (msg) => {
+    //     const message = JSON.parse(msg.data);
+    //     switch (message.action) {
+    //       case "sessionData":
+    //         commit('setSessionData', message.body);
+    //         break;
+    //       case "assignments":
+    //         commit('setAssignments', message.body);
+    //         break;
+    //       case "wrongToken":
+    //         commit('setSettings', {...state.settings, token: ""});
+    //         break;
+    //     }
+    //   };
+    //   ws.onclose = () => dispatch('wsReconnect');
+    //   commit('setSocket', ws);
+    // },
+    // wsReconnect ({ dispatch }) {
+    //   setTimeout(()=>{dispatch('wsConnect')}, 1000);
+    // },
+    // wsSend ({ state }, data) {
+    //   if(state.ws && state.ws.readyState === WebSocket.OPEN)
+    //     state.ws.send(JSON.stringify(data));
+    // },
+    // updateSettings ({ commit, dispatch }, payload) {
+    //   dispatch('wsSend', {
+    //     action: 'updateSettings',
+    //     body: payload
+    //   });
+    //   commit('setSettings', payload);
+    // },
+    // updateAnswers ({ dispatch }, answers) {
+    //   dispatch('wsSend', {
+    //     action: 'updateAnswers',
+    //     body: answers
+    //   });
+    // },
+    // journalDownloaded ({ dispatch }) {
+    //   dispatch('wsSend', {
+    //     action: 'journalDownloaded'
+    //   });
+    // },
   }
 })
