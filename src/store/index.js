@@ -56,6 +56,8 @@ export default new Vuex.Store({
           case "wrongToken":
             commit('setSettings', { ...state.settings, token: "" });
             break;
+          default:
+            console.log('Unknown method:', msg.action);
         }
       };
       ws.onclose = () => dispatch('wsReconnect');

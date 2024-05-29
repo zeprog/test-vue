@@ -15,6 +15,8 @@
     components: {Assignment, AssignmentAdmin, Journal, JournalAdmin},
     created() {
       this.$store.dispatch('wsConnect');
+      console.log(this.$store.state.role);
+      console.log(this.$store.state.isAssignment);
       const resizeObserver = new ResizeObserver(() => {
         window.parent.postMessage(JSON.stringify({
           subject: 'lti.frameResize',
