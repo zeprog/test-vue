@@ -9,7 +9,7 @@ export default new Vuex.Store({
     ws: null,
     role: '',
     settings: {},
-    isAssignment: Boolean,
+    isAssignment: false,
     answers: [],
     submissions: [],
     assignments: [],
@@ -41,6 +41,7 @@ export default new Vuex.Store({
     wsConnect ({ commit, dispatch, state }) {
       const ws = new WebSocket(`${webSocketsUrl}?session=${document.documentElement.dataset.session}`);
       console.log('LOG 1');
+      console.log(ws);
       ws.onmessage = (msg) => {
         console.log(msg);
         const message = JSON.parse(msg.data);
