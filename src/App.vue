@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <component :is="view"/>
-    <p>fsdgfgeger</p>
+    <component v-if="role" :is="view"/>
   </div>
 </template>
 
