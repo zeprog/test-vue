@@ -21,6 +21,13 @@
         }), '*');
       });
       resizeObserver.observe(document.documentElement);
+      const payload = {
+        action: 'updateData', // Убедитесь, что ваш сервер понимает этот action
+        body: {
+          key: 'value' // Ваши данные
+        }
+      };
+      this.$store.dispatch('wsSend', payload);
     },
     computed: {
       role() {
