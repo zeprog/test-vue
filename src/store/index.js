@@ -45,6 +45,7 @@ export default new Vuex.Store({
       ws.onmessage = (msg) => {
         console.log(msg);
         const message = JSON.parse(msg.data);
+        console.log(msg.data);
         switch (message.action) {
           case "sessionData":
             commit('setSessionData', message.body);
