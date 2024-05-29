@@ -16,6 +16,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setSocket (state, data) {
+      console.log(data);
       state.ws = data;
     },
     setSessionData (state, data) {
@@ -39,6 +40,7 @@ export default new Vuex.Store({
   actions: {
     wsConnect ({ commit, dispatch, state }) {
       const ws = new WebSocket(`${webSocketsUrl}?session=${document.documentElement.dataset.session}`);
+      console.log('LOG 1');
       ws.onmessage = (msg) => {
         console.log(msg);
         const message = JSON.parse(msg.data);
